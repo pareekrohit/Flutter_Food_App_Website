@@ -152,14 +152,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "8.2.2"
-  hover_effect:
-    dependency: "direct main"
-    description:
-      name: hover_effect
-      sha256: cb5666a5be711e7c3a69dead7e9e9aa163c6a7bf19fbad771c8f32da6cd68558
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.0"
   http:
     dependency: "direct main"
     description:
@@ -253,6 +245,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
+  sprung:
+    dependency: "direct main"
+    description:
+      name: sprung
+      sha256: "54322638f5e393d2b808175f7eadbaa4836a4425456e98d93c3d676dc56ebdf1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   stack_trace:
     dependency: transitive
     description:

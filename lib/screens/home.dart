@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/anim/onHoverButton.dart';
 import 'package:flutter_demo/api/apiService.dart';
 import 'package:flutter_demo/model/foodCategories.dart';
 import 'package:flutter_demo/utils/MyColors.dart';
@@ -11,7 +12,8 @@ import 'package:flutter_demo/widgets/drawer.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:hover_effect/hover_effect.dart';
+
+/*import 'package:hover_effect/hover_effect.dart';*/
 import 'package:http/http.dart';
 import '../widgets/curve_clipper.dart';
 
@@ -79,78 +81,89 @@ class _HomePageState extends State<HomePage> {
                 height: 350,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        child: Image.network(
-                            height: 300,
-                            "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80"),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      const SizedBox(
-                        child: Text(
-                          "BreakFast",
-                          style: TextStyle(fontFamily: 'bondoni', fontSize: 22),
+                  child: OnHoverButton(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          child: Image.network(
+                              height: 300,
+                              "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80"),
                         ),
-                      )
-                    ],
-                  ),
-                )),
-          ),
-          Expanded(
-            child: SizedBox(
-                height: 350,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        child: Image.network(
-                            height: 300,
-                            "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80"),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      SizedBox(
-                        child: Expanded(
-                          child: const Text(
+                        SizedBox(
+                          height: 15,
+                        ),
+                        const SizedBox(
+                          child: Text(
                             "BreakFast",
                             style:
                                 TextStyle(fontFamily: 'bondoni', fontSize: 22),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 )),
           ),
           Expanded(
             child: SizedBox(
-                height: 350,
+                /*height: 350,*/
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        child: Image.network(
-                            height: 300,
-                            "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80"),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      SizedBox(
-                        child: const Text(
-                          "BreakFast",
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: OnHoverButton(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      child: Image.network(
+                          height: 300,
+                          "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80"),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    const SizedBox(
+                      child: Expanded(
+                        child: Text(
+                          "Lunch",
                           style: TextStyle(fontFamily: 'bondoni', fontSize: 22),
                         ),
-                      )
-                    ],
-                  ),
-                )),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )),
+          ),
+          Expanded(
+            child: SizedBox(
+                /*height: 350,*/
+                child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: OnHoverButton(
+                child: Column(
+                  children: [
+                    Container(
+                     /* height: 300,*/
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(topRight:Radius.circular(20) ,bottomLeft: Radius.circular(20))
+                      ),
+                      // color: Color(0xFFEEEFF3),
+                      child: Image.network(
+                          height: 300,
+                          "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80"),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const SizedBox(
+                      child: Text(
+                        "Dinner",
+                        style: TextStyle(fontFamily: 'bondoni', fontSize: 22),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )),
           ),
         ],
       ),
@@ -1140,33 +1153,45 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 35),
-            child: InkWell(
-              onHover: (value) {},
-              child: const Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Profile",
-                    style: TextStyle(fontSize: 15),
-                  )),
+            child: OnHoverButton(
+              child: InkWell(
+                onTap: () {},
+                child: const Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Profile",
+                      style: TextStyle(fontSize: 15),
+                    )),
+              ),
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(right: 35),
-            child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  "Email",
-                  style: TextStyle(fontSize: 15),
-                )),
+            child: OnHoverButton(
+              child: InkWell(
+                onTap: () {},
+                child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Email",
+                      style: TextStyle(fontSize: 15),
+                    )),
+              ),
+            ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(right: 35),
-            child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  "Logout",
-                  style: TextStyle(fontSize: 15),
-                )),
+            child: OnHoverButton(
+              child: InkWell(
+                onTap: () {},
+                child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Logout",
+                      style: TextStyle(fontSize: 15),
+                    )),
+              ),
+            ),
           ),
           Padding(
               padding: const EdgeInsets.only(right: 20.0, top: 10),
