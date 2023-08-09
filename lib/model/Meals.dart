@@ -54,7 +54,7 @@ class Meals {
       this.strCreativeCommonsConfirmed, 
       this.dateModified,});
 
-  Meals.fromJson(dynamic json) {
+  fromJson(dynamic json) {
     idMeal = json['idMeal'];
     strMeal = json['strMeal'];
     strDrinkAlternate = json['strDrinkAlternate'];

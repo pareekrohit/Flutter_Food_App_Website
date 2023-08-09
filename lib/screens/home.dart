@@ -142,10 +142,11 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     Container(
-                     /* height: 300,*/
+                      /* height: 300,*/
                       decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(topRight:Radius.circular(20) ,bottomLeft: Radius.circular(20))
-                      ),
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20),
+                              bottomLeft: Radius.circular(20))),
                       // color: Color(0xFFEEEFF3),
                       child: Image.network(
                           height: 300,
@@ -377,251 +378,6 @@ class _HomePageState extends State<HomePage> {
     } else {
       return _getMobileUI();
     }
-  }
-
-  Widget _getMainScreenUI() {
-    return SingleChildScrollView(
-      child: Container(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    // width: 300,
-                    child: Card(
-                      elevation: 6,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6)),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: SizedBox(
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              icon: Icon(Icons.search_sharp),
-                              iconColor: Color(0xFFac1291),
-                              border: InputBorder.none,
-                              hintText: "Search",
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Card(
-                    color: Color(0xFFac1291),
-                    elevation: 7,
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 7.0, vertical: 12.0),
-                      child: Icon(
-                        color: Colors.white,
-                        Icons.filter_list_outlined,
-                        size: 26,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-
-              SizedBox(
-                  height: 150.0,
-                  width: double.infinity,
-                  child: Carousel(
-                    images: const [
-                      NetworkImage(
-                          'https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'),
-                      NetworkImage(
-                          'https://img.freepik.com/free-psd/food-menu-restaurant-web-banner-template_106176-828.jpg?w=996&t=st=1683636077~exp=1683636677~hmac=fc9b5364ae21eeec53b426552601032d796f9b6e02c48167482eef649ec2a9d4'),
-                      NetworkImage(
-                          'https://images.unsplash.com/photo-1562059390-a761a084768e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=819&q=80'),
-                    ],
-                    dotSize: 4.0,
-                    dotSpacing: 15.0,
-                    dotColor: const Color(0xFFac1291),
-                    indicatorBgPadding: 5.0,
-                    dotBgColor: Colors.transparent,
-                    borderRadius: true,
-                    radius: const Radius.circular(13),
-                  )),
-              // Container(
-              //     width: double.infinity,
-              //     height: 180,
-              //     margin: const EdgeInsets.all(10),
-              //     child: ClipRRect(
-              //       borderRadius: BorderRadius.circular(20),
-              //       child: const Image(
-              //         fit: BoxFit.fill,
-              //         image: NetworkImage(
-              //             'https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=465&q=80'),
-              //       ),
-              //     )),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: FutureBuilder(
-                    future: foodCategoriesList,
-                    builder:
-                        (context, AsyncSnapshot<List<Category>?> snapshot) {
-                      if (snapshot.hasData) {
-                        return GridView.builder(
-                            shrinkWrap: true,
-                            primary: false,
-                            // padding: const EdgeInsets.all(10),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    mainAxisSpacing: 4.0,
-                                    mainAxisExtent: 230.0),
-                            itemCount: snapshot.data?.length,
-                            itemBuilder: ((context, index) {
-                              return SizedBox(
-                                height: 500,
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, MyRoutes.detailRoute,
-                                        arguments: {
-                                          'id': snapshot.data![index].idCategory
-                                        });
-                                  },
-                                  child: Card(
-                                    elevation: 10,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    shadowColor:
-                                        const Color.fromARGB(255, 177, 80, 159),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0, vertical: 6),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            alignment: Alignment.topRight,
-                                            child: const Icon(
-                                              Icons.favorite_border,
-                                            ),
-                                          ),
-                                          Flexible(
-                                              child: SizedBox(
-                                            width: 100,
-                                            height: 100,
-                                            child: CircleAvatar(
-                                              backgroundColor: Colors.white,
-                                              radius: 50.0,
-                                              child: CircleAvatar(
-                                                backgroundImage: NetworkImage(
-                                                    // getFoodImage(index),
-                                                    snapshot.data![index]
-                                                        .strCategoryThumb),
-                                                radius: 100.0,
-                                              ),
-                                            ),
-                                          )),
-                                          SizedBox(
-                                            width: double.infinity,
-                                            child: Text(
-                                              // getTitle(index),
-                                              snapshot.data![index].strCategory,
-                                              style: const TextStyle(
-                                                fontFamily: 'oswald',
-                                                fontSize: 16,
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: double.infinity,
-                                            child: RatingBar(
-                                              initialRating: 3,
-                                              itemSize: 14.0,
-                                              ratingWidget: RatingWidget(
-                                                  full: const Icon(Icons.star,
-                                                      color: Colors.orange),
-                                                  half: const Icon(
-                                                    Icons.star_half,
-                                                    color: Colors.orange,
-                                                  ),
-                                                  empty: const Icon(
-                                                    Icons.star_outline,
-                                                    color: Colors.orange,
-                                                  )),
-                                              onRatingUpdate: (value) {},
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            children: [
-                                              const SizedBox(
-                                                // width: double.infinity,
-                                                child: Text(
-                                                  '\$49',
-                                                  style: TextStyle(
-                                                    fontFamily: 'oswald',
-                                                    fontSize: 19,
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 1,
-                                                child: Container(
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: InkWell(
-                                                    child: Container(
-                                                      width: 30.0,
-                                                      height: 30.0,
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color:
-                                                            Color(0xFFac1291),
-                                                      ),
-                                                      child: const Icon(
-                                                        size: 20,
-                                                        Icons.add,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }));
-                      } else if (snapshot.hasError) {
-                        return Text("Error occured ${snapshot.error}");
-                      }
-
-                      return const Center(
-                          child: SpinKitHourGlass(color: Color(0xFFac1291))
-                          // CircularProgressIndicator()
-                          );
-                    }),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
   }
 
   Widget _getMobileUI() {
@@ -1255,41 +1011,33 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Container(
                         alignment: Alignment.center,
-                        child: ColorFiltered(
+                        child: /*ColorFiltered(
                           colorFilter: ColorFilter.mode(
-                              const Color(0xFF0514D7).withOpacity(1.0),
-                              BlendMode.color),
-                          child: Image.network(
-                            fit: BoxFit.fill,
-                            height: 700,
-                            width: double.infinity,
-                            "https://images.unsplash.com/photo-1495195134817-aeb325a55b65?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=876&q=80",
-                          ),
+                              const Color(0xFFFFFFFF),
+                              BlendMode.exclusion),*/
+                            Image.network(
+                          fit: BoxFit.cover,
+                          height: 700,
+                          width: double.infinity,
+                          "https://tinysalt.loftocean.com/wp-content/uploads/2022/09/monika-grabkowska-qSkWlOBHia0-unsplash.jpg",
                         ),
+                        /*),*/
                       ),
                       Column(
-                        mainAxisSize: MainAxisSize.max,
+                        //mainAxisSize: MainAxisSize.max,
                         children: [
                           const SizedBox(
                             height: 70,
                           ),
-                          const Text(
-                            "Discover Restaurant And Food",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 50,
-                              color: Color(0xFF0B2239),
-                              fontFamily: 'bondoni',
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text(
-                            "When looking at its layout. The point of using lorem ipsum ",
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF0B2239)),
-                          ),
+                          CarouselSlider.builder(
+                              itemCount: 3,
+                              itemBuilder: (context, index, realIndex) {
+                                return _getTitleText(index);
+                              },
+                              options: CarouselOptions(
+                                height: 200,
+                                autoPlay: true,
+                              )),
                           const SizedBox(
                             height: 25,
                           ),
@@ -1323,7 +1071,7 @@ class _HomePageState extends State<HomePage> {
                 height: 150,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(35, 10, 35, 40),
+                padding: const EdgeInsets.fromLTRB(100, 10, 100, 40),
                 child: FutureBuilder(
                     future: foodCategoriesList,
                     builder:
@@ -1332,132 +1080,123 @@ class _HomePageState extends State<HomePage> {
                         return GridView.builder(
                             shrinkWrap: true,
                             primary: false,
+
                             // padding: const EdgeInsets.all(10),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 4,
-                                    mainAxisSpacing: 4.0,
-                                    mainAxisExtent: 230.0),
+                              crossAxisCount: 4,
+                              mainAxisSpacing: 10, /*mainAxisExtent: 230.0*/
+                            ),
                             itemCount: snapshot.data?.length,
                             itemBuilder: ((context, index) {
                               return SizedBox(
-                                height: 500,
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, MyRoutes.detailRoute,
-                                        arguments: {
-                                          'id': snapshot.data![index].idCategory
-                                        });
-                                  },
-                                  child: Card(
-                                    elevation: 10,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    shadowColor: const Color(0xC70514D7),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 22.0, vertical: 14),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            alignment: Alignment.topRight,
-                                            child: const Icon(
-                                              size: 30,
-                                              Icons.favorite_border,
-                                            ),
-                                          ),
-                                          Flexible(
-                                              child: SizedBox(
-                                            width: 130,
-                                            height: 130,
-                                            child: CircleAvatar(
-                                              backgroundColor: Colors.white,
-                                              radius: 50.0,
-                                              child: CircleAvatar(
-                                                backgroundImage: NetworkImage(
-                                                    // getFoodImage(index),
-                                                    snapshot.data![index]
-                                                        .strCategoryThumb),
-                                                radius: 100.0,
-                                              ),
-                                            ),
-                                          )),
-                                          SizedBox(
+                                // height: 700,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 13, vertical: 5),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, MyRoutes.detailRoute,
+                                          arguments: {
+                                            'id':
+                                                snapshot.data![index].idCategory
+                                          });
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          child: SizedBox(
                                             width: double.infinity,
-                                            child: Text(
-                                              // getTitle(index),
-                                              snapshot.data![index].strCategory,
-                                              style: const TextStyle(
-                                                fontFamily: 'oswald',
-                                                fontSize: 16,
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
+                                            child: Card(
+                                                clipBehavior:
+                                                    Clip.antiAliasWithSaveLayer,
+                                                elevation: 10,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                /*shadowColor: const Color(0xC70514D7),*/
+                                                child: Image.network(
+                                                  fit: BoxFit.fill,
+                                                    snapshot
+                                                    .data![index]
+                                                    .strCategoryThumb)),
                                           ),
-                                          SizedBox(
-                                            width: double.infinity,
-                                            child: RatingBar(
-                                              initialRating: 3,
-                                              itemSize: 24.0,
-                                              ratingWidget: RatingWidget(
-                                                  full: const Icon(Icons.star,
-                                                      color: Colors.orange),
-                                                  half: const Icon(
-                                                    Icons.star_half,
-                                                    color: Colors.orange,
-                                                  ),
-                                                  empty: const Icon(
-                                                    Icons.star_outline,
-                                                    color: Colors.orange,
-                                                  )),
-                                              onRatingUpdate: (value) {},
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Wrap(
                                             children: [
-                                              const SizedBox(
-                                                // width: double.infinity,
-                                                child: Text(
-                                                  '\$49',
-                                                  style: TextStyle(
-                                                    fontFamily: 'oswald',
-                                                    fontSize: 19,
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                /*mainAxisAlignment: MainAxisAlignment.center,*/
+                                                children: [
+                                                  /* Container(
+                                                  alignment: Alignment.topRight,
+                                                  child: const Icon(
+                                                    size: 30,
+                                                    Icons.favorite_border,
                                                   ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 1,
-                                                child: Container(
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: InkWell(
-                                                    child: Container(
-                                                      width: 30.0,
-                                                      height: 30.0,
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color:
-                                                            Color(0xC70514D7),
-                                                      ),
-                                                      child: const Icon(
-                                                        size: 20,
-                                                        Icons.add,
-                                                        color: Colors.white,
+                                                ),*/
+                                                  SizedBox(
+                                                    child: Text(
+                                                      snapshot.data![index]
+                                                          .strCategory,
+                                                      style: const TextStyle(
+                                                        //fontFamily: 'oswald',
+                                                        fontSize: 16,
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              )
+                                                  SizedBox(
+                                                    child: RatingBar(
+                                                      initialRating: 3,
+                                                      itemSize: 24.0,
+                                                      ratingWidget:
+                                                          RatingWidget(
+                                                              full: const Icon(
+                                                                  Icons.star,
+                                                                  color: Colors
+                                                                      .orange),
+                                                              half: const Icon(
+                                                                Icons.star_half,
+                                                                color: Colors
+                                                                    .orange,
+                                                              ),
+                                                              empty: const Icon(
+                                                                Icons
+                                                                    .star_outline,
+                                                                color: Colors
+                                                                    .orange,
+                                                              )),
+                                                      onRatingUpdate:
+                                                          (value) {},
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  const SizedBox(
+                                                    child: Text(
+                                                      '\u{20B9}399',
+                                                      /*'\$49',*/
+                                                      style: TextStyle(
+                                                        fontFamily: 'oswald',
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -1640,6 +1379,60 @@ class _HomePageState extends State<HomePage> {
       case 3:
         return 'Genie';
     }
+    return "";
+  }
+
+  Widget _getTitleText(int index) {
+    return Column(
+      children: [
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.6,
+          child: Text(
+            _getTitleString(index),
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              overflow: TextOverflow.clip,
+              fontSize: 50,
+              color: MyColors.white,
+              fontFamily: 'bondoni',
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          _getSubTitle(index),
+          style: const TextStyle(fontSize: 16, color: MyColors.white),
+        ),
+      ],
+    );
+  }
+
+  String _getTitleString(int index) {
+    switch (index) {
+      case 0:
+        return "Discover Restaurant And Food";
+      case 1:
+        return "Set up your brand new food blog with TinySalt";
+
+      case 2:
+        return "Discover Restaurant And Food2";
+    }
+
+    return "";
+  }
+
+  String _getSubTitle(int index) {
+    switch (index) {
+      case 0:
+        return "When looking at its layout. The point of using lorem ipsum ";
+      case 1:
+        return "Fresh and Elegant Personal Food Blog WordPress Theme";
+      case 2:
+        return "When looking at its layout. The point of using lorem ipsum 2";
+    }
+
     return "";
   }
 }
