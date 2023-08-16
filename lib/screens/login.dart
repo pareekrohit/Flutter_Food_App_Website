@@ -1,9 +1,16 @@
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/api/apiService.dart';
+import 'package:flutter_demo/api/api_constant.dart';
+import 'package:flutter_demo/model/login/LoginResponse.dart';
 import 'package:flutter_demo/screens/home.dart';
 import 'package:flutter_demo/utils/MyColors.dart';
 import 'package:flutter_demo/utils/routes.dart';
 import 'package:flutter_demo/utils/utils.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -13,18 +20,57 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   var name = "";
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool _isLoading = false;
 
-  moveToHome(BuildContext context) {
+  moveToHome() async {
     if (_formKey.currentState!.validate()) {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-      // Fluttertoast.showToast(
-      //     msg: "Login successful",
-      //     toastLength: Toast.LENGTH_SHORT,
-      //     gravity: ToastGravity.BOTTOM,
-      //     textColor: Colors.white,
-      //     backgroundColor: const Color(0xFFac1291),
-      //     fontSize: 16.0);
+      /*Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext context) => HomePage()));*/
+      setState(() {
+        _isLoading = true;
+      });
+
+      LoginResponse? loginResp;
+      loginResp = await ApiService()
+          .loginApi(emailController.text, passwordController.text);
+
+      setState(() {
+        _isLoading = false;
+      });
+
+      if (loginResp?.status == true) {
+        var sharePref = await SharedPreferences.getInstance();
+        try{
+          sharePref.setBool(ApiConstant.login, true);
+          sharePref.setString(
+              ApiConstant.name, {loginResp?.data?.user?.name} as String);
+          sharePref.setString(
+              ApiConstant.email, {loginResp?.data?.user?.email} as String);
+          sharePref.setString(
+              ApiConstant.token, {loginResp?.data?.user?.token} as String);
+
+
+        }catch(e){
+          log("Exception ${e.toString()}");
+        }
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ));
+      } else {
+        Fluttertoast.showToast(
+            msg: "Login Failed",
+            toastLength: Toast.LENGTH_LONG,
+            textColor: Colors.white,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 4,
+            webBgColor: '#FF0000',
+            webPosition: 'left',
+            fontSize: 18.0);
+      }
     }
   }
 
@@ -120,6 +166,7 @@ class _LoginState extends State<Login> {
                               }
                               return null;
                             },
+                            controller: emailController,
                           ),
                           const SizedBox(
                             height: 20,
@@ -150,6 +197,7 @@ class _LoginState extends State<Login> {
                               }
                               return null;
                             },
+                            controller: passwordController,
                           ),
                         ],
                       ),
@@ -189,7 +237,7 @@ class _LoginState extends State<Login> {
             resizeToAvoidBottomInset: true,
             body: Container(
               // color: MyColors.mainColor,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/images/login_bg.jpg'),
                     fit: BoxFit.cover),
@@ -206,7 +254,8 @@ class _LoginState extends State<Login> {
                             children: [
                               Card(
                                 elevation: 15,
-                                color: Colors.white,shadowColor: MyColors.mainColor,
+                                color: Colors.white,
+                                shadowColor: MyColors.mainColor,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
@@ -237,9 +286,10 @@ class _LoginState extends State<Login> {
                                         child: TextFormField(
                                           decoration: InputDecoration(
                                             labelText: "Enter Email",
-
                                             labelStyle: const TextStyle(
-                                                color: Color(0xD0000000),fontSize: 14,letterSpacing: 2),
+                                                color: Color(0xD0000000),
+                                                fontSize: 14,
+                                                letterSpacing: 2),
                                             focusedBorder: OutlineInputBorder(
                                               borderRadius:
                                                   BorderRadius.circular(20.0),
@@ -256,7 +306,9 @@ class _LoginState extends State<Login> {
                                               ),
                                             ),
                                           ),
-                                          style: const TextStyle(fontSize: 18,),
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                          ),
                                           onChanged: (value) =>
                                               {name = value, setState(() {})},
                                           validator: (value) {
@@ -269,6 +321,7 @@ class _LoginState extends State<Login> {
                                             }
                                             return null;
                                           },
+                                          controller: emailController,
                                         ),
                                       ),
                                       const SizedBox(
@@ -280,7 +333,9 @@ class _LoginState extends State<Login> {
                                           decoration: InputDecoration(
                                             labelText: "Enter password",
                                             labelStyle: TextStyle(
-                                                color: Color(0xD0000000),fontSize: 14,letterSpacing: 2),
+                                                color: Color(0xD0000000),
+                                                fontSize: 14,
+                                                letterSpacing: 2),
                                             focusedBorder: OutlineInputBorder(
                                               borderRadius:
                                                   BorderRadius.circular(20.0),
@@ -303,39 +358,43 @@ class _LoginState extends State<Login> {
                                             if (value!.isEmpty) {
                                               return "Password field should not be empty";
                                             }
+
                                             return null;
                                           },
+                                          controller: passwordController,
                                         ),
                                       ),
                                       const SizedBox(height: 40),
-                                      ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              fixedSize: Size(200, 40),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        30), // <-- Radius
-                                              ),
-                                              backgroundColor:
-                                                  MyColors.mainColor),
-                                          onPressed: () {
-                                            moveToHome(context);
-                                          },
-                                          child: const Text('Login')),
-
+                                      _isLoading
+                                          ? const CircularProgressIndicator()
+                                          : ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  fixedSize: Size(200, 40),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30), // <-- Radius
+                                                  ),
+                                                  backgroundColor:
+                                                      MyColors.mainColor),
+                                              onPressed: () {
+                                                moveToHome();
+                                              },
+                                              child: const Text('Login')),
                                       const SizedBox(
                                         height: 20,
                                       ),
-
-                                      const Text(
-                                        "Forgot Password?",
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            color: MyColors.mainColor,
-                                            fontFamily: 'wosald',
-                                            fontWeight: FontWeight.w700),
+                                      InkWell(
+                                        onTap: () {},
+                                        child: const Text(
+                                          "Forgot Password?",
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              color: MyColors.mainColor,
+                                              fontFamily: 'wosald',
+                                              fontWeight: FontWeight.w700),
+                                        ),
                                       ),
-
                                       const SizedBox(
                                         height: 50,
                                       ),

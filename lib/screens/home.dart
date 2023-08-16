@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo/anim/onHoverButton.dart';
 import 'package:flutter_demo/api/apiService.dart';
 import 'package:flutter_demo/model/foodCategories.dart';
+import 'package:flutter_demo/screens/login.dart';
 import 'package:flutter_demo/utils/MyColors.dart';
 import 'package:flutter_demo/utils/routes.dart';
 import 'package:flutter_demo/widgets/drawer.dart';
@@ -15,6 +16,7 @@ import 'package:badges/badges.dart' as badges;
 
 /*import 'package:hover_effect/hover_effect.dart';*/
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/curve_clipper.dart';
 
 class HomePage extends StatefulWidget {
@@ -346,6 +348,11 @@ class _HomePageState extends State<HomePage> {
     foodCategoriesList = ApiService().getFoodCategories();
     log("Home Page ${foodCategoriesList.toString()}");
   }
+
+  Future<SharedPreferences> getSharedPrefObj() async {
+     return await SharedPreferences.getInstance();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -939,7 +946,12 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(right: 35),
             child: OnHoverButton(
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  getSharedPrefObj().then((value) => value.clear());
+                  Navigator.of(context).pushAndRemoveUntil(new MaterialPageRoute(
+                          builder: (context) => new Login()),
+                          (route) => false);
+                },
                 child: Align(
                     alignment: Alignment.center,
                     child: Text(
@@ -1232,8 +1244,8 @@ class _HomePageState extends State<HomePage> {
                           // crossAxisAlignment: CrossAxisAlignment.center,
                           children: const [
                             SizedBox(
-                                height: 35,
-                                width: 35,
+                                height: 45,
+                                width: 45,
                                 child: Image(
                                     image: AssetImage(
                                   'assets/images/location.png',
@@ -1242,8 +1254,8 @@ class _HomePageState extends State<HomePage> {
                               width: 100,
                             ),
                             SizedBox(
-                                height: 45,
-                                width: 45,
+                                height: 55,
+                                width: 55,
                                 child: Padding(
                                   padding: EdgeInsets.all(8.0),
                                   child: Image(
@@ -1255,8 +1267,8 @@ class _HomePageState extends State<HomePage> {
                               width: 100,
                             ),
                             SizedBox(
-                                height: 45,
-                                width: 45,
+                                height: 55,
+                                width: 55,
                                 child: Padding(
                                   padding: EdgeInsets.all(8.0),
                                   child: Image(

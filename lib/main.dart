@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home:  Login(),
+      home:  Splash(),
       themeMode: ThemeMode.light,
       theme: MyTheme.themedata(context),
       darkTheme: MyTheme.darkTheme(context),
